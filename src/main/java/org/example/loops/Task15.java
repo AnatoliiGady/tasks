@@ -1,17 +1,24 @@
 package org.example.loops;
 
 public class Task15 {
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
         int num = 65418;
-        int sum = 0;
         int deleteNum = 4;
-        for (int i = 0; i < num; i++) {
-            if ()
-            //int digit = num % 10;
-            num /= 10;
-            //sum += digit * Math.pow(10, i);
+        int index = 1;
+        int sum = 0;
+
+        while (num > 0) {
+            int digit = num % 10;
+            if (digit != deleteNum) {
+                sum += digit * index;
+                num /= 10;
+                index *= 10;
+            } else {
+                num /= 10;
+            }
         }
         System.out.println(sum);
-    }*/
+    }
 }
+
 
