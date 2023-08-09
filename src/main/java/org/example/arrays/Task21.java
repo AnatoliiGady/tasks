@@ -9,15 +9,19 @@ public class Task21 {
         System.out.println(Arrays.toString(deleteEqualElement(array)));
     }
 
-    static int[] deleteEqualElement(int[] numbers) {
+    static int countElementDeleteArray(int[] numbers) {
         int count = 0;
-        int indexNewArray = 0;
         for (int i = 0; i < numbers.length - 1; i++) {
             if (numbers[i] == numbers[i + 1]) {
                 count++;
             }
         }
+        return count;
+    }
+    static int[] deleteEqualElement(int[] numbers) {
+        int count = countElementDeleteArray(numbers);
         int[] array = new int[numbers.length - count];
+        int indexNewArray = 0;
 
         for (int i = 0; i <= numbers.length - 1; i++) {
             if (i != numbers.length - 1) {
@@ -26,8 +30,7 @@ public class Task21 {
                     indexNewArray += 1;
 
                 }
-            }
-            if (i == numbers.length - 1) {
+            } else {
                 array[indexNewArray] = numbers[i];
                 indexNewArray += 1;
             }
