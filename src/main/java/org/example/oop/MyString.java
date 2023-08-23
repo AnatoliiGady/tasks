@@ -1,6 +1,8 @@
 package org.example.oop;
 
 
+import java.util.Arrays;
+
 public class MyString {
     private final char[] chars;
 
@@ -30,7 +32,7 @@ public class MyString {
         return result;
     }
 
-    public boolean equalsMyString(MyString otherString) {
+    public boolean myEquals(MyString otherString) {
         char[] s1 = this.chars;
         char[] s2 = otherString.chars;
         if (s1.length != s2.length) {
@@ -44,7 +46,7 @@ public class MyString {
         return true;
     }
 
-    public MyString printReversMyString() {
+    public MyString printRevers() {
         char[] s1 = this.chars;
         char[] s2 = new char[s1.length];
         int count = 0;
@@ -52,7 +54,19 @@ public class MyString {
             s2[count] = s1[i];
             count++;
         }
-        MyString result = new MyString(s2);
-        return result;
+        return new MyString(s2);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MyString myString = (MyString) o;
+        return myEquals(myString);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(chars);
     }
 }

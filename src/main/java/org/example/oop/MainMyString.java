@@ -10,10 +10,13 @@ public class MainMyString {
         s3.print();
         System.out.println();
 
-        System.out.println(myString.equalsMyString(myString1));
+        System.out.println(myString.myEquals(myString1));
 
         MyString myStringRevers = new MyString('Д', 'о', 'в', 'о', 'д');
-        MyString revers = myStringRevers.printReversMyString();
+        MyString myStringRevers1 = new MyString('Д', 'о', 'в', 'о', 'д');
+        System.out.println(myStringRevers.equals(myStringRevers1));
+
+        MyString revers = myStringRevers.printRevers();
         revers.print();
     }
 }
