@@ -2,7 +2,7 @@ package org.example.experements;
 
 public class Main {
     public static void main(String[] args) {
-        Dog dog = new Dog("Шарик");
+       /* Dog dog = new Dog("Шарик");
         Animal animal = dog;
         animal.go();
         Dog dog1 = (Dog) animal;
@@ -12,7 +12,10 @@ public class Main {
 
         boolean isDog = animal instanceof Dog;
         System.out.println(isDog);
-        System.out.println(dog);
+        System.out.println(dog);*/
+
+        Figure square = new Square(4);
+        System.out.println(square);
     }
 
 }

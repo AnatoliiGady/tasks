@@ -10,19 +10,19 @@ public class Clock {
     }
 
     public Clock add(int min) {
-        int hoursNum = min / 60;
-        int minutesNum = min - hoursNum * 60;
-        int hoursResult = getHours() + hoursNum;
-        int minResult = getMinutes() + minutesNum;
+        return merge(this.hours, 0, this.minutes, min);
+    }
 
-        if (minResult >= 60) {
-            hoursResult += minResult / 60;
-            minResult -= 60;
-        }
-        if (hoursResult >= 23) {
-            hoursResult = hoursNum;
-        }
-        return new Clock(hoursResult, minResult);
+    public Clock add(Clock c) {
+        return merge(this.hours, c.hours, this.minutes, c.minutes);
+    }
+
+    private Clock merge(int h1, int h2, int m1, int m2) {
+        int sumHours = h1 + h2;
+        int sumMinutes = m1 + m2;
+        int hoursResult = (sumHours + (sumMinutes / 60)) % 24;
+        int minutesResult = sumMinutes % 60;
+        return new Clock(hoursResult, minutesResult);
     }
 
     public int getHours() {
@@ -35,8 +35,8 @@ public class Clock {
 
     @Override
     public String toString() {
-        return "Время: "
-                + hours
-                + ":" + minutes;
+        String hours = this.hours < 10 ? "0" + this.hours : "" + this.hours;
+        String minutes = this.minutes < 10 ? "0" + this.minutes : "" + this.minutes;
+        return "Время: " + hours + ":" + minutes;
     }
 }
