@@ -2,7 +2,6 @@ package org.example.list;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 
 public class MyList<E> implements Iterable<E> {
 
@@ -51,6 +50,17 @@ public class MyList<E> implements Iterable<E> {
             System.out.println(current.next);
             current = current.next;
         }
+    }
+    public void revers() {
+        Node<E> previous = null;
+        Node<E> current = head;
+        while (current != null) {
+            Node<E> next = current.next;
+            current.next = previous;
+            previous = current;
+            current = next;
+        }
+        head = previous;
     }
 
     public boolean isEmpty() {
