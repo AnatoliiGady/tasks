@@ -28,6 +28,14 @@ public class MyList<E> implements Iterable<E> {
         size++;
     }
 
+    public void print() {
+        while (head.next != null) {
+            System.out.println(head);
+            head = head.next;
+        }
+        System.out.println(head);
+    }
+
     public boolean isEmpty() {
         return head == null;
     }
@@ -58,5 +66,9 @@ public class MyList<E> implements Iterable<E> {
         E value;
         Node<E> next;
 
+        @Override
+        public String toString() {
+            return value.toString();
+        }
     }
 }
