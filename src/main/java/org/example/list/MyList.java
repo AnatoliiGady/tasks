@@ -14,18 +14,20 @@ public class MyList<E> implements Iterable<E> {
     }
 
     public void add(E value) {
-        Node<E> newNode = new Node<>();
-        newNode.value = value;
-        if (isEmpty()) {
-            head = newNode;
-        } else {
-            Node<E> tail = head;
-            while (tail.next != null) {
-                tail = tail.next;
+        if (value != null) {
+            Node<E> newNode = new Node<>();
+            newNode.value = value;
+            if (isEmpty()) {
+                head = newNode;
+            } else {
+                Node<E> tail = head;
+                while (tail.next != null) {
+                    tail = tail.next;
+                }
+                tail.next = newNode;
             }
-            tail.next = newNode;
+            size++;
         }
-        size++;
     }
 
     public void print() {
