@@ -2,6 +2,7 @@ package org.example.list;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class MyList<E> implements Iterable<E> {
 
@@ -31,11 +32,25 @@ public class MyList<E> implements Iterable<E> {
     }
 
     public void print() {
-        while (head.next != null) {
-            System.out.println(head);
-            head = head.next;
+        getElementsFromIndex(0);
+    }
+
+    public void getElementsFromIndex(int index) {
+        if (isEmpty()) {
+            return;
         }
-        System.out.println(head);
+        if (index >= size || index < 0) {
+            throw new IllegalArgumentException("Неккоректный индекс");
+        }
+        Node<E> current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        System.out.println(current);
+        while (current.next != null) {
+            System.out.println(current.next);
+            current = current.next;
+        }
     }
 
     public boolean isEmpty() {
