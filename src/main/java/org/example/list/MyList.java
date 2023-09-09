@@ -50,6 +50,11 @@ public class MyList<E> {
         size++;
     }
 
+    public void addFirstAndTail(E value) {
+        head = new Node<>(value, head);
+        add(value);
+    }
+
     public void print() {
         printElementsFromIndex(0);
     }
