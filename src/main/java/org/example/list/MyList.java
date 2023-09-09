@@ -1,9 +1,6 @@
 package org.example.list;
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-
-public class MyList<E> implements Iterable<E> {
+public class MyList<E> {
 
     private int size = 0;
 
@@ -15,8 +12,7 @@ public class MyList<E> implements Iterable<E> {
 
     public void add(E value) {
         if (value != null) {
-            Node<E> newNode = new Node<>();
-            newNode.value = value;
+            Node<E> newNode = new Node<>(value, null);
             if (isEmpty()) {
                 head = newNode;
             } else {
@@ -30,28 +26,56 @@ public class MyList<E> implements Iterable<E> {
         }
     }
 
-    public void print() {
-        getElementsFromIndex(0);
+    public void addFromIndex(E value, int index) {
+        if (isEmpty()) {
+            return;
+        }
+        if (head == null) {
+            return;
+        }
+        if (index > size || index < 0) {
+            throw new IllegalArgumentException("Неккоректный индекс!");
+        }
+        Node<E> current = head;
+        if (index > 1) {
+            Node<E> newNode = new Node<>(value, null);
+            for (int i = 1; i < index - 1; i++) {
+                current = current.next;
+            }
+            newNode.next = current.next;
+            current.next = newNode;
+        } else {
+            head = new Node<>(value, head);
+        }
+        size++;
     }
 
-    public void getElementsFromIndex(int index) {
+    public void print() {
+        printElementsFromIndex(0);
+    }
+
+    public void printElementsFromIndex(int index) {
         if (isEmpty()) {
             return;
         }
         if (index >= size || index < 0) {
-            throw new IllegalArgumentException("Неккоректный индекс");
+            throw new IllegalArgumentException("Введен неккоректный индекс");
         }
         Node<E> current = head;
-        for (int i = 0; i < index; i++) {
+        for (int i = 1; i < index; i++) {
             current = current.next;
         }
-        System.out.println(current);
+        System.out.print(current + " ");
         while (current.next != null) {
-            System.out.println(current.next);
+            System.out.print(current.next + " ");
             current = current.next;
         }
     }
+
     public void revers() {
+        if (isEmpty()) {
+            return;
+        }
         Node<E> previous = null;
         Node<E> current = head;
         while (current != null) {
@@ -67,31 +91,14 @@ public class MyList<E> implements Iterable<E> {
         return head == null;
     }
 
-    @Override
-    public Iterator<E> iterator() {
-        return new Iterator<E>() {
-            private Node<E> current = head;
-
-            @Override
-            public boolean hasNext() {
-                return current != null;
-            }
-
-            @Override
-            public E next() {
-                if (!hasNext()) {
-                    throw new NoSuchElementException();
-                }
-                E value = current.value;
-                current = current.next;
-                return value;
-            }
-        };
-    }
-
     public static class Node<E> {
         E value;
         Node<E> next;
+
+        public Node(E value, Node<E> next) {
+            this.value = value;
+            this.next = next;
+        }
 
         @Override
         public String toString() {
