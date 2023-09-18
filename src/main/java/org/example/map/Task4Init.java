@@ -4,41 +4,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Task4Init {
-    private int price = 0;
-    Map<Character, Integer> map = new HashMap<>(getMap());
+    private final static Map<Character, Integer> map = buildMap();
 
-    public int getPriceWord(Map<Character, Integer> map, String word) {
-        char[] chars = word.toCharArray();
-        for (char c : chars) {
-            if (!isLetter(c)) {
-                break;
+    public static int getWordPrice(String word) {
+        int price = 0;
+        for (int i = 0; i < word.length(); i++) {
+            Integer currentPrice = map.get(word.charAt(i));
+            if (currentPrice == null) {
+                return -1;
             }
-            price += map.get(c);
+            price += currentPrice;
         }
         return price;
     }
 
-    public void printPriceWord() {
-        if (price > 0) {
-            System.out.print("Цена вашего слова: " + price);
-        } else {
-            System.out.print("Укажите слово!");
-        }
-    }
-
-    public boolean isLetter(char c) {
-        return Character.isLetter(c);
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public static Map<Character, Integer> getMap() {
+    public static Map<Character, Integer> buildMap() {
         Map<Character, Integer> map = new HashMap<>();
         map.put('A', 1);
         map.put('E', 1);
