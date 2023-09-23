@@ -21,6 +21,14 @@ public class Order {
         products.add(product);
     }
 
+    public double orderCost() {
+        double sumOrders = 0;
+        for (Product product : products) {
+            sumOrders += product.getPrice();
+        }
+        return sumOrders;
+    }
+
     public Date getRegistrationDate() {
         return registrationDate;
     }
