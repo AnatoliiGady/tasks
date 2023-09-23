@@ -3,6 +3,7 @@ package org.example.stream;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductList {
 
@@ -12,9 +13,11 @@ public class ProductList {
         products.add(product);
     }
 
-    public void findProductByPriceMoreAndProductType(int price, String productType) {
-        products.stream().filter(product -> product.getProductType().equals(productType))
-                .filter(product -> product.getPrice() > price).forEach(System.out::println);
+    public List<Product> findProductByPriceMoreAndProductType(int price, String productType) {
+        return products.stream()
+                .filter(product -> product.getProductType().equals(productType))
+                .filter(product -> product.getPrice() > price)
+                .collect(Collectors.toList());
     }
 
     public void applyDiscount(int discount, String productType) {
@@ -27,5 +30,7 @@ public class ProductList {
         products.stream().filter(product -> product.getProductType().equals(productType))
                 .sorted(Comparator.comparing(Product::getProductName)).forEach(System.out::println);
     }
+
+
 
 }
