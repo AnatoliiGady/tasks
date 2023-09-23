@@ -18,17 +18,12 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public static void applyDiscountOrderMore1000(Order order) {
+    public static List<Order> applyDiscountOrderMore1000(List<Order> orders) {
+        return orders.stream()
+                .filter(order -> order.orderCost() > 1000)
+                .peek(order -> order.getProducts()
+                        .forEach(product -> product.setPrice(product.getPrice() - (product.getPrice() * 0.05))))
+                .collect(Collectors.toList());
 
-        /*int sumPriceOrder = 0;
-        for (Product product : order.getProducts()) {
-            sumPriceOrder += product.getPrice();
-        }
-        for (Product product : order.getProducts()) {
-            if (sumPriceOrder > 1000) {
-                double newPrice = (product.getPrice() - (product.getPrice() * 0.05));
-                product.setPrice(newPrice);
-            }
-        }*/
     }
 }
