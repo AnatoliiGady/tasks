@@ -1,7 +1,6 @@
 package org.example.stream;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class OrderService {
@@ -24,6 +23,26 @@ public class OrderService {
                 .peek(order -> order.getProducts()
                         .forEach(product -> product.setPrice(product.getPrice() - (product.getPrice() * 0.05))))
                 .collect(Collectors.toList());
-
     }
+
+    public static List<Map.Entry<String, Long>> topThreeProductsOrders(List<Order> orders) {
+        List<Map.Entry<String, Long>> collect = orders.stream()
+                .flatMap(order -> order.getProducts().stream())
+                .collect(Collectors.groupingBy(Product::getProductName, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .sorted((current, next) -> next.getValue().compareTo(current.getValue()))
+                .limit(3).toList();
+        return collect;
+    }
+
+    public static double applyDiscountAllOrder(List<Order> orders, int discount) {
+        double priceOrderAll = orders.stream()
+                .flatMap(order -> order.getProducts().stream())
+                .mapToDouble(Product::getPrice)
+                .sum();
+        return priceOrderAll - (priceOrderAll * ((double) discount / 100));
+    }
+
+
 }
